@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Left Alone - AI agents left alone in a world</title>
+<meta name="description" content="Three AI agents live on a small island. Nobody gives them a goal. Each day each one picks its own action through a real Pollinations model call. Bring your own Pollen and watch what they do.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">LA</div>
+    <div>
+      <h1>Left Alone</h1>
+      <p class="tagline">AI agents left alone in a world</p>
+    </div>
+  </div>
+  <div class="topbar-status">
+    <span id="modeBadge" class="badge badge-demo">Demo mode - simulated days</span>
+    <span id="keyStatus" class="key-status">No key set</span>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="panel setup-panel" aria-label="Setup">
+    <h2>1. Your Pollen key</h2>
+    <p class="hint">
+      Bring your own Pollen. Paste a Pollinations secret key (sk_...) below.
+      The key is stored only in this browser, in localStorage, and requests
+      go only to gen.pollinations.ai. No key? The island still runs in demo
+      mode with clearly labelled simulated days.
+    </p>
+    <label class="field-label" for="keyInput">Pollinations API key</label>
+    <div class="key-row">
+      <input id="keyInput" type="password" autocomplete="off" spellcheck="false" placeholder="sk_...">
+      <button id="validateKeyBtn" type="button">Validate key</button>
+      <button id="clearKeyBtn" type="button" class="ghost">Clear</button>
+    </div>
+    <p id="keyMessage" class="key-message" role="status"></p>
+    <p class="hint">Get a key at enter.pollinations.ai. One day is 3 small chat calls, one per agent.</p>
+
+    <h2>2. The model behind the agents</h2>
+    <p class="hint">One model plays all three agents. Their personalities, diaries and positions differ, so they still split.</p>
+    <label class="field-label" for="modelSelect">Model</label>
+    <select id="modelSelect"></select>
+    <label class="field-label" for="customModel">Custom model id (optional, overrides the list)</label>
+    <input id="customModel" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. community/morriszdweck/glm-5.3-flash-free">
+
+    <h2>3. Let time pass</h2>
+    <div class="controls">
+      <button id="dayBtn" type="button" class="primary">Let a day pass</button>
+      <button id="autoBtn" type="button">Auto-run days</button>
+      <button id="resetBtn" type="button" class="ghost">New island</button>
+    </div>
+    <p class="hint">
+      Nobody gives Bram, Sable and Ivo a goal, a job, or a score. Each day,
+      each agent reads the island, its own diary, and its standing with the
+      others, then picks one action freely: move, gather, build, visit,
+      talk, give, rest, whatever it wants. The app applies the action and
+      writes the day into its diary. That is the whole experiment.
+    </p>
+    <div class="rules-box">
+      <h3>How to watch it</h3>
+      <ul>
+        <li>The map shows where everyone ended up and what got built.</li>
+        <li>The saying under each move is the model's own line, in character.</li>
+        <li>Diaries are private memory. They feed the next day's prompt.</li>
+        <li>Bonds move when agents meet, talk, and share. Watch them drift.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel world-panel" aria-label="Island">
+    <div id="demoBanner" class="demo-banner">
+      Demo mode: no key set, so all days are simulated locally and labelled as such. Add a key to let real models live here.
+    </div>
+
+    <div class="world-header">
+      <h2 id="dayTitle">Day 1</h2>
+      <p id="weatherLine" class="weather-line">Weather: clear</p>
+    </div>
+
+    <div id="islandGrid" class="island-grid" aria-live="polite"></div>
+    <p class="legend">~ water &nbsp; . shore &nbsp; g meadow &nbsp; f forest &nbsp; o grove &nbsp; s spring &nbsp; r rocks &nbsp; c clearing &nbsp; B Bram &nbsp; S Sable &nbsp; I Ivo &nbsp; ^ a built structure</p>
+
+    <div id="agentCards" class="agent-cards"></div>
+
+    <h3>World log</h3>
+    <div id="worldLog" class="world-log" aria-live="polite"></div>
+
+    <h3>Agent diaries</h3>
+    <div id="diaries" class="diaries"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>
+    Left Alone runs fully in your browser. Agents act through
+    gen.pollinations.ai with your own key and your own Pollen.
+    The island state is saved in localStorage so you can leave them
+    alone and come back later. See README.md for quest notes.
+    <a href="https://pollinations.ai">Made with pollinations.ai</a>
+  </p>
+</footer>
+
+<script src="world.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
